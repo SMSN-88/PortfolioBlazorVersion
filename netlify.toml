@@ -1,7 +1,6 @@
 [build]
  base = "PortfolioBlazorVersion"
-
-  command = "dotnet publish -c Release -o build"
+  command = "dotnet publish ./PortfolioBlazorVersion.sln -c Release -o publish"
   publish = "build/wwwroot"
 
 [[redirects]]

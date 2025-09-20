@@ -1,0 +1,78 @@
+﻿@page "/ContactMe"
+@using MudBlazor
+@using System.Net.Mail
+@using System.Net
+@using PortfolioBlazorVersion.Shared
+@inject EmailService EmailService
+
+@if (_isLoading)
+{
+    <MudProgressCircular Style="height: 80px; width: 80px" Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">Contact Me</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressCircular>
+
+}
+else
+{
+    <MudThemeProvider />
+    <MudPopoverProvider />
+    <h1 style="margin-left:500px;">Contact Me</h1>
+<MudBlazor.MudPaper Class="pa-6 mx-auto" MaxWidth="500px" Elevation="3">
+    <MudBlazor.MudText Typo="MudBlazor.Typo.h5" Class="mb-4">Contact Me</MudBlazor.MudText>
+     <!-- Netlify Form -->
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <!-- Hidden input required by Netlify -->
+        <input type="hidden" name="form-name" value="contact" />
+
+        <!-- Honeypot field for spam bots (hidden from users) -->
+        <p style="display:none">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <MudTextField @bind-Value="_model.Name" Label="Name" Name="name" Required="true" RequiredError="Name is required" Class="mb-4" />
+        <MudTextField @bind-Value="_model.Email" Label="Email" Name="email" Required="true" RequiredError="Email is required" Class="mb-4" />
+        <MudTextField @bind-Value="_model.Message" Label="Message" Name="message" Required="true" RequiredError="Message is required" Class="mb-4" Lines="4" TextArea="true" />
+
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit">
+            Send
+        </MudButton>
+    </form>
+</MudBlazor.MudPaper>
+<MudSnackbarProvider />
+
+<MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+    <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+</MudChatFooter>
+}
+
+@code {
+    private ContactFormModel _model = new();
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SimulateProgressAsync();
+    }
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+}

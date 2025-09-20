@@ -1,0 +1,81 @@
+﻿@page "/blog/{slug}"
+@using MudBlazor
+@using Markdig
+@inject HttpClient Http
+
+@if (_isLoading)
+{
+    <MudProgressCircular Style="height: 80px; width: 80px" Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">Blog Post</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressCircular>
+
+}
+else
+{
+<MudBlazor.MudPaper Class="pa-6 mx-auto" MaxWidth="800px" Elevation="3">
+    @if (string.IsNullOrEmpty(Content))
+    {
+        <MudBlazor.MudText Typo="MudBlazor.Typo.h6"> Loading...</MudBlazor.MudText>
+    }
+    else
+    {
+        @((MarkupString)Content)
+    }
+</MudBlazor.MudPaper>
+}
+ <MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+            <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+        </MudChatFooter>
+
+
+@code {
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+    [Parameter] public string Slug { get; set; }
+    private string Content { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SimulateProgressAsync();
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+        if(string.IsNullOrEmpty(Slug))
+        {
+            Content = "<p><strong>Invalid post slug.</strong></p>";
+            return;
+        }
+        try
+        {
+            var md = await Http.GetStringAsync($"posts/{Slug}.md");
+            Content = Markdown.ToHtml(md);
+        }
+        catch
+        {
+            Content = "<p><strong>Post not found.</strong></p>"; 
+        }
+
+    }
+
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+}

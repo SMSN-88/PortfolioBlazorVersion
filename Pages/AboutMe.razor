@@ -1,0 +1,88 @@
+﻿@page "/aboutme"
+@using MudBlazor
+
+@if (_isLoading)
+{
+    <MudProgressCircular Style="height: 80px; width: 80px" Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">About Me</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressCircular>
+
+}
+else
+{
+    <div class="main-content">
+        <PageTitle>About Me</PageTitle>
+
+        <h1>About Me</h1>
+
+        <MudTimeline>
+            <MudTimelineItem Color="Color.Info" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Info" Typo="Typo.h5">My Experience</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Info" Typo="Typo.h6" GutterBottom="true">Tech Stack/Skills</MudText>
+                    <MudText>C#, HTML, CSS, JavaScript, .Net, Blazor, SQL,RESTful API, Azure, React, Unit Testing (MSTest), GitHub Pages & Netlify</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Success" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Success" Typo="Typo.h5">Background</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Success" Typo="Typo.h6" GutterBottom="true">History</MudText>
+                    <MudText>I'm a self taught Software Developer who career transitioned from Accounts Assistant to software development. <br /> This reflects my dedication to continuous learning and problem-solving. I am passionate about leveraging modern technologies and best practices to drive innovation. <br /> My aspiration is to grow into a Senior Developer role where I can lead projects, mentor aspiring developers, and contribute to impactful solutions within the tech community.'.</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+            <MudTimelineItem Color="Color.Error" Size="Size.Small">
+                <ItemOpposite>
+                    <MudText Color="Color.Error" Typo="Typo.h5">Down Time</MudText>
+                </ItemOpposite>
+                <ItemContent>
+                    <MudText Color="Color.Error" Typo="Typo.h6" GutterBottom="true">Out of Office</MudText>
+                    <MudText>Outside of work, I run an instagram account for fellow developers <a href="https://www.instagram.com/developersamson">(click here)</a>, posting useful tips & light hearted developer humnour. I also channel my commitment and focus into fitness as well as my love for Football & all things Liverpool FC!.</MudText>
+                </ItemContent>
+            </MudTimelineItem>
+        </MudTimeline>
+
+        <MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+            <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+        </MudChatFooter>
+    </div>
+}
+
+
+
+
+@code {
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await SimulateProgressAsync();
+    }
+
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+}

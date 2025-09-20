@@ -1,0 +1,100 @@
+﻿@page "/"
+@using MudBlazor
+
+@if (_isLoading)
+{
+    <div class="loading-progress">
+    <MudProgressLinear Style="height: 100px; width: 100px" Size=Size.Large Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">Samson Portfolio</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressLinear>
+    </div>
+}
+else
+{
+    <div id="app" class="main-content">
+        <PageTitle>Home</PageTitle>
+
+        <MudGrid Class="port-1">
+            <MudItem xs="6">
+               <MudText style="margin-left:530px;" Typo="Typo.h1" Color="Color.Dark"><h1>Samson Ayinde</h1></MudText>
+                <img class="img-1" src="/images/me2.jpeg" width="300" height="400" style="margin-left: 520px;" />
+            </MudItem>
+
+            <MudFlexBreak />
+
+            <MudItem xs="6">
+                <MudText Typo="Typo.h2" Color="Color.Info"><h2>Software Developer</h2></MudText>
+            </MudItem>
+            <MudItem xs="6">
+                <MudText Class="d-flex align-center justify-center mud-width-full py-8">Welcome to my Portfolio, built using C#, .Net 8 & Blazor framework, feel free to look around, scroll & judge my work.</MudText>
+            </MudItem>
+        </MudGrid>
+
+        <MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+            <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+        </MudChatFooter>
+        </div>
+    
+}
+
+
+
+@code{
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await SimulateProgressAsync();
+    }
+
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+}
+
+
+
+@*Implement & design with Hero Banner using MudBlazor's Mud Hero*@
+
+    <style>
+.img-1{
+        width: 200px;
+        height: auto;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 10px auto;
+    }
+
+    /* .port-1{
+        background-color:lightskyblue;
+    } */
+
+    .foot-1{
+        background-color: ButtonHighlight;
+    }    
+
+    .foot-2{
+        color: black;
+    }
+    </style>

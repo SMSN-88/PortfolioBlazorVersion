@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+@using MudBlazor
+
+<MudThemeProvider Theme="@MyCustomTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+
+    <!-- App Bar -->
+    <MudAppBar Color="Color.Primary" Elevation="4">
+        @* <MudText Typo="Typo.h6" Class="ml-2">My Portfolio</MudText> *@
+        <MudSpacer />
+        <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+        <MudNavLink Href="/aboutme" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">About Me</MudNavLink>
+        <MudNavLink Href="/projects" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Work">Projects</MudNavLink>
+        <MudNavLink Href="/ContactMe" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Contacts">Contact Me</MudNavLink>
+        <MudNavLink Href="/blog" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Abc">Blog</MudNavLink>
+    </MudAppBar>
+
+    <!-- Drawer -->
+    <MudDrawer @bind-Open="_drawerOpen" Variant="DrawerVariant.Temporary" Elevation="4">
+        <NavMenu />
+    </MudDrawer>
+
+    <!-- Main Page Content -->
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.False" Class="pa-6">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = false;
+
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            Primary = Colors.Blue.Darken3,
+            Secondary = Colors.Pink.Accent2,
+            Background = Colors.BlueGray.Lighten5,
+            AppbarBackground = Colors.Blue.Darken4,
+            AppbarText = Colors.Shades.White
+        }
+    };
+}

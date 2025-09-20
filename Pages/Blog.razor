@@ -1,0 +1,99 @@
+﻿@page "/blog"
+@using MudBlazor
+@using Markdig
+@using PortfolioBlazorVersion.Shared
+@inject HttpClient Http
+
+
+
+@if (_isLoading)
+{
+    <MudProgressCircular Style="height: 80px; width: 80px" Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">Blog</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressCircular>
+
+}
+else
+{
+
+    <h3>Blog</h3>
+<MudBlazor.MudPaper Class="pa-6 mx-auto" MaxWidth="800px" Elevation="3">
+    <MudBlazor.MudText Typo="MudBlazor.Typo.h4" Class="mb-4"> MyBlog</MudBlazor.MudText>
+
+    @if (blogPosts.Count == 0)
+    {
+        <MudBlazor.MudText>No blog posts yet.</MudBlazor.MudText>
+    }
+    else
+    {
+        @foreach (var post in blogPosts)
+        {
+            <MudBlazor.MudPaper Class="mb-4 pa-4" Elevation="1">
+                <MudBlazor.MudText Typo="MudBlazor.Typo.h5">@post.Title</MudBlazor.MudText>
+                <MudBlazor.MudText Typo="MudBlazor.Typo.subtitle2" Class="mb-2">@post.Date</MudBlazor.MudText>
+                <MudBlazor.MudText>@post.Excerpt</MudBlazor.MudText>
+                <MudBlazor.MudButton Href=@($"/blog/{post.Slug}") Variant="MudBlazor.Variant.Text" Color="MudBlazor.Color.Primary">Read More</MudBlazor.MudButton>
+
+            </MudBlazor.MudPaper>
+        }
+    }
+
+</MudBlazor.MudPaper>
+
+ <MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+            <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+        </MudChatFooter>
+}
+@code {
+   
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+    private string content;
+    private List<BlogPostModel> blogPosts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SimulateProgressAsync();
+        // var md = await Http.GetStringAsync($"posts/{Slug}.md");
+        // content = Markdig.Markdown.ToHtml(md);
+        blogPosts = new List<BlogPostModel>
+        {
+            new BlogPostModel
+            {
+                Slug = "hello-world",
+                Title = "Hello World",
+                Date = "2025-09-18",
+                Excerpt = "Welcome to my first blog post! using the Blazor framework"
+            },
+            new BlogPostModel
+            {
+                Slug = "second-post",
+                Title = "My Second Post",
+                Date = "2025-09-19",
+                Excerpt = "This is my second blog post..."
+            }
+        };
+    }
+
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+}

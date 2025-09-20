@@ -1,0 +1,136 @@
+﻿@page "/projects"
+
+
+
+@using MudBlazor
+
+@if (_isLoading)
+{
+    <MudProgressCircular Style="height: 80px; width: 80px" Color="Color.Primary" Value="@_progressValue">
+        <ChildContent>
+            <MudStack Spacing="0" AlignItems="AlignItems.Center" Justify="Justify.Center">
+                <MudText Typo="Typo.subtitle2">Projects</MudText>
+                <MudText Typo="Typo.subtitle2">@_progressValue</MudText>
+            </MudStack>
+        </ChildContent>
+    </MudProgressCircular>
+
+}
+else
+{
+    <MudThemeProvider />
+    <MudPopoverProvider  />
+    <h1 style="margin-left:500px;">Projects</h1>
+    <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@_source" @bind-SelectedIndex="selectedIndex" Style="height:400px;" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle">
+        <ItemTemplate>
+            <div class="d-flex flex-column flex-column justify-center" style="height:100%">
+                @if (context == "Random Bible Verse Generator - A C# project built using Blazor with an API implementation, allowing the user to generate a random bible verse at the click of a button, built inside a mobile UI.")
+                {
+                    <img src="/images/bibleverse.png" alt="Project 1" style="max-height:300px; max-width:300px;" class="mx-auto" />
+                  
+                   <MudTooltip  Text="Repo" ShowOnHover=true> <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/SMSN-88/BibleVerseApp.git" Color="Color.Primary" Style="margin-left:600px;" aria-label="github" Size=Size.Medium /></MudTooltip>
+                }
+                else if (context == "Blazor Project - Three C# projects in one, Built using Blazor WASM, here you'll find a 1)Notes app, 2) Habit Tracker & 3)Budget Tracker.")
+                {
+                    <img src="/images/BlazorApp.png" alt="Project 2" style="max-height:300px; max-width:300px;" class="mx-auto" />
+                    <MudTooltip Text="Repo" ShowOnHover=true> <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="margin-left:600px;" Href="https://github.com/SMSN-88/BlazorProjectApp" Color="Color.Primary" aria-label="github" /> </MudTooltip>
+                    <MudTooltip Text="Live Site" ShowOnHover=true>  <MudIconButton Icon="@Icons.Material.Filled.Share" Style="margin-left:600px;" Href="https://blazorprojectapp.netlify.app/" Disabled="false" aria-label="share" /> </MudTooltip>
+                  
+                }
+                else if (context == "Quiz App - Multi-category quiz app built with JavaScript, improving state management and user flow with dynamic scoring.")
+                {
+                    <img src="/images/QuizApp.png" alt="Project 3" style="max-height:300px; max-width:300px;" class="mx-auto" />
+                    <MudTooltip Text="Repo" ShowOnHover=true> <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="margin-left:600px;" Href="https://github.com/SMSN-88/QuizApp" Color="Color.Primary" aria-label="github" /> </MudTooltip>
+                    <MudTooltip Text="Live Site" ShowOnHover=true>  <MudIconButton Icon="@Icons.Material.Filled.Share" Style="margin-left:600px;" Href="https://smsn-quizapp.netlify.app/" Disabled="false" aria-label="share" /> </MudTooltip>
+                    
+                }
+                else if (context == "SMSN Restaurant - SMSN Gym Kitchen provides the best Pre & Post gym meals.")
+                {
+                    <img src="/images/restaurant.png" alt="Project 4" style="max-height:300px; max-width:300px;" class="mx-auto" />
+                    <MudTooltip Text="Repo" ShowOnHover=true>  <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="margin-left:600px;" Href="https://github.com/SMSN-88/SMSN-GymKitchen" Color="Color.Primary" aria-label="github" /> </MudTooltip>
+                    <MudTooltip Text="Live Site" ShowOnHover=true>   <MudIconButton Icon="@Icons.Material.Filled.Share" Style="margin-left:600px;" Href="https://smsn-gymkitchen.netlify.app/" Disabled="false" aria-label="share" /> </MudTooltip>
+                    
+                }
+                else if (context == "SMSN 'E-Commerce' Sports Store - Built a responsive Front-End e-commerce platform with JavaScript, featuring dynamic product pages.")
+                {
+                    <img src="/images/sport.png" alt="Project 5" style="max-height:300px; max-width:300px;" class="mx-auto" />
+                    <MudTooltip Text="Repo" ShowOnHover=true> <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="margin-left:600px;" Href="https://github.com/SMSN-88/SPORTSTORE" Color="Color.Primary" aria-label="github" /> </MudTooltip>
+                    <MudTooltip Text="Live Site" ShowOnHover=true>  <MudIconButton Icon="@Icons.Material.Filled.Share" Style="margin-left:600px;" Href="https://smsn-sportstore.netlify.app/" Disabled="false" aria-label="share" /> </MudTooltip>
+
+                }
+              @*   else
+                {
+                    <img src="/images/placeholder.png" alt="Placeholder" style="max-height:300px; max-width:200px;" class="mx-auto" />
+                } *@
+                <MudText Align="@Align.Center" Class="mx-auto">@context</MudText>
+            </div>
+        </ItemTemplate>
+    </MudCarousel>
+
+    <MudChatFooter Class="foot-1" Style="margin-top: 34px;">
+        <MudText Class="foot-2"><p>© 2025 Samson Ayinde</p></MudText>
+    </MudChatFooter>
+}
+
+
+
+@code{
+    private int _progressValue = 0;
+    private bool _isLoading = true;
+    private MudCarousel<string>? _carousel;
+    private bool _arrows = true;
+    private bool _bullets = false;
+    private bool _enableSwipeGesture = true;
+    private bool _autocycle = false;
+    private IList<string> _source = new List<string> 
+    { "Random Bible Verse Generator - A C# project built using Blazor with an API implementation, allowing the user to generate a random bible verse at the click of a button, built inside a mobile UI.",
+      "Blazor Project - Three C# projects in one, Built using Blazor WASM, here you'll find a 1)Notes app, 2) Habit Tracker & 3)Budget Tracker.",
+      "Quiz App - Multi-category quiz app built with JavaScript, improving state management and user flow with dynamic scoring.",
+      "SMSN Restaurant - SMSN Gym Kitchen provides the best Pre & Post gym meals.",
+      "SMSN 'E-Commerce' Sports Store - Built a responsive Front-End e-commerce platform with JavaScript, featuring dynamic product pages." };
+    private int selectedIndex = 0;
+
+    private async Task AddAsync()
+    {
+        _source.Add($"Project {_source.Count + 1}"); 
+        await Task.Delay(1);
+        _carousel?.MoveTo(_source.Count - 1);
+    }
+
+    private async Task DeleteAsync(int index)
+    {
+        if (_source.Any())
+        {
+            _source.RemoveAt(index);
+            await Task.Delay(1);
+            _carousel?.MoveTo(System.Math.Max(System.Math.Min(index, _source.Count - 1), 0));
+        }
+    }
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await SimulateProgressAsync();
+    }
+
+    private async Task SimulateProgressAsync()
+    {
+        _progressValue = 0;
+        _isLoading = true;
+
+        while (_progressValue < 100)
+        {
+            _progressValue += 4;
+            StateHasChanged();
+            await Task.Delay(100); // Faster load for smoother UX
+        }
+
+        _progressValue = 100;
+        _isLoading = false;
+        StateHasChanged();
+    }
+    
+
+}

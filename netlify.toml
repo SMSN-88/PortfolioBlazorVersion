@@ -6,3 +6,10 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+  [[plugins]]
+  package = "netlify-plugin-dotnet"
+
+  [plugins.inputs]
+    version = "9.0.304"
+

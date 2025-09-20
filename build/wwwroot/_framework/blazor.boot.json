@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PortfolioBlazorVersion",
   "resources": {
-    "hash": "sha256-hJ7FWUArYWF9gEjMzHas7JwZNI0bEmVPtgcG52drkrM=",
+    "hash": "sha256-PQQ09wp2oeO3x5i0QKTwXtg0hkDy97gbznYllP3g/D4=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-O/NCYcAN9uPocD7ns7AzF/cqx7f5vL1PTJCQs0vEXyk="
     },
@@ -89,7 +89,7 @@
       "System.Xml.XmlSerializer.wasm": "sha256-cuCe+pArGMiFnKHdJ7Cxsl/8Pr7XQ9EpGxx1mPGUgvE=",
       "System.wasm": "sha256-/Ib2sECJIp5OmAw2FVP/3jA36Bh6yA6fac798DlmOd8=",
       "System.Private.CoreLib.wasm": "sha256-w5kvj2W+N/8zikU6b/qc5ToBEnNN+LeTumH7IApImAQ=",
-      "PortfolioBlazorVersion.wasm": "sha256-AhqGt3yr4WikbvAjG3eKS8uQSXHSFeoW2UDsd4W7RrQ="
+      "PortfolioBlazorVersion.wasm": "sha256-MJ+DoRYlqZtOAfvYlnC9dcn4Y68KwYCJtzPAZbe3Apg="
     }
   },
   "cacheBootResources": true,

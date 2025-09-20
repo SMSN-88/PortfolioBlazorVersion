@@ -1,0 +1,5 @@
+[build]
+  base = "PortfolioBlazorVersion"
+  command = "dotnet publish -c Release -o build"
+  publish = "PortfolioBlazorVersion/build/wwwroot"
+  

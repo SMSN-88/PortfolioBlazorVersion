@@ -1,7 +1,6 @@
 [build]
-  base = "PortfolioBlazorVersion"
-  command = "dotnet publish PortfolioBlazorVersion.csproj -c Release -o ../build"
-  publish = "../build/wwwroot"
+  command = "dotnet publish -c Release -o build"
+  publish = "build/wwwroot"
 
 [[redirects]]
   from = "/*"

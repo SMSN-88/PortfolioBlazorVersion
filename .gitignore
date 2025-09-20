@@ -1,0 +1,24 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+wwwroot/
+dist/
+node_modules/
+
+# Logs
+*.log
+
+# Publish profiles
+Properties/PublishProfiles/
+
+# IDE configs
+.vscode/

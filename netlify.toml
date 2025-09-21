@@ -1,5 +1,5 @@
 [build]
-  publish = "build/wwwroot"
+  publish = "wwwroot"
 
 [[redirects]]
   from = "/*"
